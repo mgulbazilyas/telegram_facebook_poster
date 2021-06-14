@@ -97,7 +97,7 @@ def login(driver, user, passwd):
     driver.find_element_by_css_selector('[name="email"]').send_keys(user.strip())
     driver.save_screenshot('screenshots/before_login.png')
     driver.find_element_by_xpath('//*[@type="submit"]').click()
-    time.sleep(1)
+    time.sleep(5)
     driver.save_screenshot('screenshots/after_login.png')
 
 def read_config_file(filename='config.txt'):
