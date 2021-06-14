@@ -85,6 +85,8 @@ def login(driver, user, passwd):
         return
 
     driver.get('https://facebook.com')
+    driver.save_screenshot('screenshots/before_login.png')
+
     try:
         time.sleep(4)
         driver.find_elements_by_css_selector("[role=dialog] [type=submit]")[-1].click()
@@ -96,7 +98,7 @@ def login(driver, user, passwd):
     driver.find_element_by_css_selector('[name="email"]').send_keys(user.strip())
     driver.find_element_by_xpath('//*[@type="submit"]').click()
     time.sleep(1)
-
+    driver.save_screenshot('screenshots/after_login.png')
 
 def read_config_file(filename='config.txt'):
     config = {}
