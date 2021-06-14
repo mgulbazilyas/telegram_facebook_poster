@@ -1,0 +1,7 @@
+/photos/
+firefox.profile
+chrome_data
+config.py
+*.log
+.idea
+logininfo.txt
