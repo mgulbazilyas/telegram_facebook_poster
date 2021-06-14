@@ -42,13 +42,16 @@ def uniquify(path, sep='-'):
 def get_firefox(user_data_dir=None):
     from selenium.webdriver.firefox.options import Options
     from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+
+
+    options = webdriver.FirefoxOptions()
+    options.headless = True
+    options.add_argument('--no-sandbox')
+    options.add_argument("--disable-setuid-sandbox")
     
-    options = Options()
-    options.add_argument("-profile")
-    options.add_argument(str(scriptDirectory / user_data_dir))
     firefox_capabilities = DesiredCapabilities.FIREFOX
     firefox_capabilities['marionette'] = True
-    driver = webdriver.Firefox(
+    driver = webdriver.Firefox(options=options,
                                executable_path=GeckoDriverManager().install())
     return driver
 
