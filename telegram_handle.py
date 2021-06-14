@@ -34,7 +34,7 @@ def echo_photo(message):
 
 
 print('started')
-bot.polling(none_stop=True)
+bot.polling(none_stop=True,)
 # bot.get_updates(limit=4)
 
 # chat = bot.get_chat(telegram_group_id)
