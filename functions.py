@@ -85,17 +85,17 @@ def login(driver, user, passwd):
         return
 
     driver.get('https://facebook.com')
-    driver.save_screenshot('screenshots/before_login.png')
 
     try:
         time.sleep(4)
         driver.find_elements_by_css_selector("[role=dialog] [type=submit]")[-1].click()
         time.sleep(2)
     except: pass
-    driver.find_element_by_css_selector('[name="pass"]').click()
+    driver.find_element_by_css_selector('[name="pass"]').clear()
     driver.find_element_by_css_selector('[name="pass"]').send_keys(passwd.strip())
     driver.find_element_by_css_selector('[name="email"]').clear()
     driver.find_element_by_css_selector('[name="email"]').send_keys(user.strip())
+    driver.save_screenshot('screenshots/before_login.png')
     driver.find_element_by_xpath('//*[@type="submit"]').click()
     time.sleep(1)
     driver.save_screenshot('screenshots/after_login.png')
