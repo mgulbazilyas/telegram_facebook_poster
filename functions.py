@@ -52,10 +52,15 @@ def get_firefox(user_data_dir=None):
         fp = webdriver.FirefoxProfile(user_data_dir)
     else:
         fp = webdriver.FirefoxProfile()
-        
-    driver = webdriver.Firefox(firefox_profile=fp, options=options,
-                               executable_path=GeckoDriverManager().install(),
-                               log_path='geckodriver.log')
+
+    fp.set_preference('dom.push.enabled', False)
+    fp.set_preference('media.volume_scale', "0.0")
+    
+    driver = webdriver.Firefox(
+        firefox_profile=fp,
+        options=options,
+        executable_path=GeckoDriverManager().install(),
+        log_path='geckodriver.log')
     return driver
 
 
