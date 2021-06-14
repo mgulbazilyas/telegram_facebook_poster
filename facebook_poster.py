@@ -23,11 +23,11 @@ class Setup:
         self.driver = kwargs.get('driver', None)
         if self.driver is None:
             self.do_driver_open()
-
+        
 
 
     def do_driver_open(self):
-        self.driver = functions.get_firefox(user_data_dir='firefox.profile')
+        self.driver = functions.get_firefox()
         self.driver.set_window_size(1200, 700)
         self.driver.get("https://www.facebook.com")
         try:
