@@ -99,6 +99,9 @@ def login(driver, user, passwd):
         driver.find_element_by_css_selector('form>div>div[id]>a[role=button]').click();time.sleep(2)
     except: pass
     driver.save_screenshot('screenshots/before_login.png')
+    with open('screenshots/login_page.html', 'w')as stream:
+        stream.write(str(driver.find_element_by_css_selector('body').get_attribute('innerHTML')))
+        
     driver.find_element_by_xpath('//*[@type="submit"]').click()
     time.sleep(5)
     driver.save_screenshot('screenshots/after_login.png')
