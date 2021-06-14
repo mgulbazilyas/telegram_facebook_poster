@@ -7,6 +7,8 @@ import threading
 from selenium.webdriver.common.keys import Keys
 import functions
 from config import *
+os.makedirs('screenshots', exist_ok=True)
+
 
 class Setup:
     def __init__(self, **kwargs):
@@ -56,9 +58,11 @@ class Setup:
             driver.switch_to.alert.accept()
         except:
             pass
+        driver.save_screenshot('screenshots/before_scroll.png')
+
         driver.execute_script('window.scrollTo(0,350);')
         time.sleep(5)
-        driver.save_screenshot('before posting.png')
+        driver.save_screenshot('screenshots/before_posting.png')
         # try:
         #     driver.find_element_by_css_selector('[loggingname="status_tab_selector"]').click();time.sleep(5)
         # except :
