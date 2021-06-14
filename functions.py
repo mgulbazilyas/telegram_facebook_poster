@@ -48,10 +48,14 @@ def get_firefox(user_data_dir=None):
     options.headless = True
     options.add_argument('--no-sandbox')
     options.add_argument("--disable-setuid-sandbox")
-    
+    if user_data_dir:
+        fp = webdriver.FirefoxProfile(user_data_dir)
+    else:
+        fp = webdriver.FirefoxProfile()
+        
     firefox_capabilities = DesiredCapabilities.FIREFOX
     firefox_capabilities['marionette'] = True
-    driver = webdriver.Firefox(options=options,
+    driver = webdriver.Firefox(firefox_profile=fp, options=options,
                                executable_path=GeckoDriverManager().install())
     return driver
 
