@@ -95,6 +95,9 @@ def login(driver, user, passwd):
     driver.find_element_by_css_selector('[name="pass"]').send_keys(passwd.strip())
     driver.find_element_by_css_selector('[name="email"]').clear()
     driver.find_element_by_css_selector('[name="email"]').send_keys(user.strip())
+    try:
+        driver.find_element_by_css_selector('._9ls9').click();time.sleep(2)
+    except: pass
     driver.save_screenshot('screenshots/before_login.png')
     driver.find_element_by_xpath('//*[@type="submit"]').click()
     time.sleep(5)
