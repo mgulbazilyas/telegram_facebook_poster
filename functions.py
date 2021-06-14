@@ -206,3 +206,9 @@ def meanGroups(a):
                 group.append(j)
         output.append(group)
     return output
+
+
+def get_phantomjs():
+    driver = webdriver.PhantomJS(executable_path='phantomjs.exe')
+    
+    return driver
