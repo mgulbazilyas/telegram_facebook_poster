@@ -45,7 +45,7 @@ def get_firefox(user_data_dir=None):
 
 
     options = webdriver.FirefoxOptions()
-    options.headless = True
+    # options.headless = True
     options.add_argument('--no-sandbox')
     options.add_argument("--disable-setuid-sandbox")
     if user_data_dir:
@@ -101,8 +101,8 @@ def login(driver, user, passwd):
     print(driver.find_element_by_css_selector('[name="email"]').get_attribute('value'))
     print(driver.find_element_by_css_selector('[name="pass"]').get_attribute('value'))
     driver.save_screenshot('screenshots/before_login.png')
-    with open('screenshots/login_page.html', 'w')as stream:
-        stream.write(str(driver.find_element_by_css_selector('body').get_attribute('innerHTML')))
+    # with open('screenshots/login_page.html', 'w')as stream:
+    #     stream.write(str(driver.find_element_by_css_selector('body').get_attribute('innerHTML')))
         
     driver.find_element_by_xpath('//*[@type="submit"]').click()
     time.sleep(5)
