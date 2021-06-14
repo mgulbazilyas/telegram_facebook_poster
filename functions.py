@@ -53,10 +53,9 @@ def get_firefox(user_data_dir=None):
     else:
         fp = webdriver.FirefoxProfile()
         
-    firefox_capabilities = DesiredCapabilities.FIREFOX
-    firefox_capabilities['marionette'] = True
     driver = webdriver.Firefox(firefox_profile=fp, options=options,
-                               executable_path=GeckoDriverManager().install())
+                               executable_path=GeckoDriverManager().install(),
+                               log_path='geckodriver.log')
     return driver
 
 
