@@ -1,3 +1,4 @@
 pyTelegramBotAPI
 selenium
 webdriver-manager
+wget
