@@ -222,7 +222,7 @@ def meanGroups(a):
 
 
 def get_phantomjs():
-    from phantomjs_bin import executable_path
-    driver = webdriver.PhantomJS(executable_path=executable_path)
+    # from phantomjs_bin import executable_path
+    driver = webdriver.PhantomJS(executable_path='phantomjs')
     
     return driver

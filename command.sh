@@ -4,5 +4,5 @@ https://bbuseruploads.s3.amazonaws.com/fd96ed93-2b32-46a7-9d2b-ecbc0988516a/down
 
 scp config.py root@137.220.57.157:/root/telegram_facebook_poster/
 
-
+scp config.py gukly@gukly.com:/home2/gukly/telegram_facebook_poster
 sudo {http,https,ftp}_proxy=http://mMvnM5:q58u1L@195.85.194.198:8000/ python telegram_handle.py
