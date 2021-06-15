@@ -45,7 +45,7 @@ def get_firefox(user_data_dir=None):
 
 
     options = webdriver.FirefoxOptions()
-    # options.headless = True
+    #  options.headless = True
     options.add_argument('--no-sandbox')
     options.add_argument("--disable-setuid-sandbox")
     if user_data_dir:

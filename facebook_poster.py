@@ -41,7 +41,7 @@ class Setup:
 
     def action(self):
         pass
-
+    
     def quit(self):
         self.driver.quit()
 

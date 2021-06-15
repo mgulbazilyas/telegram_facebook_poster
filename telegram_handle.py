@@ -23,6 +23,7 @@ def echo_text(message):
     poster.post_group(facebook_group, message.text)
 
 
+@bot.message_handler(content_types=['photo'])
 @bot.channel_post_handler(
     # func=lambda message: message.chat.id == telegram_group_id,
     content_types=['photo'])

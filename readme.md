@@ -10,6 +10,4 @@ telegram_channel_id: int = '<TELEGRAM CHANNEL ID>'
 
 username: str = '<FB_USERNAME>'
 password: str = '<FB_PASSWORD>'
-
-
 ```
