@@ -81,7 +81,7 @@ def get_webdriver(user_data_dir=None, headless=False):
 
 def login(driver, user, passwd):
     if not (user and passwd):
-        input("Login and press Enter: ")
+        input("Login and run again: ")
         return
 
     driver.get('https://facebook.com')
@@ -96,15 +96,20 @@ def login(driver, user, passwd):
     driver.find_element_by_css_selector('[name="email"]').clear()
     driver.find_element_by_css_selector('[name="email"]').send_keys(user.strip())
     try:
-        driver.find_element_by_css_selector('form>div>div[id]>a[role=button]').click();time.sleep(2)
+        show_pass = driver.find_element_by_css_selector('form >div[id]>a[role=button]')
+        driver.execute_script('arguments[0].click();', show_pass)
+        time.sleep(2)
+        
     except: pass
     print(driver.find_element_by_css_selector('[name="email"]').get_attribute('value'))
     print(driver.find_element_by_css_selector('[name="pass"]').get_attribute('value'))
     driver.save_screenshot('screenshots/before_login.png')
     # with open('screenshots/login_page.html', 'w')as stream:
     #     stream.write(str(driver.find_element_by_css_selector('body').get_attribute('innerHTML')))
-        
-    driver.find_element_by_xpath('//*[@type="submit"]').click()
+    
+    # submit = driver.find_element_by_xpath('//*[@type="submit"]')
+    submit = driver.find_element_by_name('login')
+    driver.execute_script('arguments[0].click();', submit)
     time.sleep(5)
     driver.save_screenshot('screenshots/after_login.png')
 

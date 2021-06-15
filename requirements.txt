@@ -2,3 +2,4 @@ pyTelegramBotAPI
 selenium
 webdriver-manager
 wget
+phantomjs-binary
