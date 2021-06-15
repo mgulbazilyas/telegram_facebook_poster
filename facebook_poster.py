@@ -27,7 +27,7 @@ class Setup:
 
 
     def do_driver_open(self):
-        self.driver = functions.get_firefox()
+        self.driver = functions.get_firefox(headless=True)
         self.driver.set_window_size(1200, 700)
         self.driver.get("https://www.facebook.com")
         try:
@@ -42,6 +42,8 @@ class Setup:
     def action(self):
         pass
     
+
+        
     def quit(self):
         self.driver.quit()
 
