@@ -6,3 +6,10 @@ scp config.py root@137.220.57.157:/root/telegram_facebook_poster/
 
 scp config.py gukly@gukly.com:/home2/gukly/telegram_facebook_poster
 sudo {http,https,ftp}_proxy=http://mMvnM5:q58u1L@195.85.194.198:8000/ python telegram_handle.py
+
+
+ssh gukly@gukly.com
+
+
+source /home2/gukly/virtualenv/coffee_subscriptions_backend/3.7/bin/activate  && cd telegram_facebook_poster
+
