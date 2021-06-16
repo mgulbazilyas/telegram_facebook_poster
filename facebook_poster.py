@@ -27,7 +27,7 @@ class Setup:
 
 
     def do_driver_open(self):
-        self.driver = functions.get_phantomjs()#headless=True)
+        self.driver = functions.get_firefox(headless=False)
         self.driver.set_window_size(1200, 700)
         self.driver.get("https://www.facebook.com")
         try:
