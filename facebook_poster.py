@@ -27,9 +27,12 @@ class Setup:
 
 
     def do_driver_open(self):
-        self.driver = functions.get_firefox(headless=False)
+        self.driver = functions.get_webdriver(user_data_dir='chrome_data')
         self.driver.set_window_size(1200, 700)
         self.driver.get("https://www.facebook.com")
+        # self.driver.get('https://www.google.com/search?q=what+is+my+ip')
+        self.driver.save_screenshot('screenshots/google.png')
+
         try:
             self.login()
         except Exception as e:
@@ -81,10 +84,10 @@ class Setup:
 
 
         # copying text to clipboard
-        # pc.copy(text)
+        pc.copy(text)
 
-        write.send_keys(text)
-        # write.send_keys(Keys.CONTROL + 'V')
+        # write.send_keys(text)
+        write.send_keys(Keys.CONTROL + 'V')
         time.sleep(5)
         
         for file in media:

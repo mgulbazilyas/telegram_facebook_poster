@@ -3,3 +3,4 @@ selenium
 webdriver-manager
 wget
 phantomjs-binary
+selenium-wire

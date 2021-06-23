@@ -2,13 +2,18 @@ from pprint import pprint
 import wget
 import telebot
 import os
-
+os.environ['MOZ_HEADLESS'] = '1'
+import ssl
+ssl._create_default_https_context = ssl._create_unverified_context
 os.makedirs('photos', exist_ok=True)
 from config import *
 import facebook_poster
+
+# os.system("http://mMvnM5:q58u1L@195.85.194.198:8000")
+# os.system("https://mMvnM5:q58u1L@195.85.194.198:8000")
+
 try:
     poster = facebook_poster.Setup()
-    
     bot = telebot.TeleBot(TOKEN, )
     
     
@@ -35,7 +40,7 @@ try:
                              out=file_info.file_path)
         poster.post_group(facebook_group, message.caption, media=[file])
         # bot.reply_to(message, message.caption)
-    
+        bot.send_message(-1001381745215, 'Sent\n'+message.caption)
     
     print('started')
     bot.polling(none_stop=True, )

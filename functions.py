@@ -42,9 +42,11 @@ def uniquify(path, sep='-'):
 def get_firefox(user_data_dir=None, headless=False):
     from selenium.webdriver.firefox.options import Options
     from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-
-
+    # from seleniumwire import webdriver
+    from selenium.webdriver.common.proxy import Proxy, ProxyType
     options = webdriver.FirefoxOptions()
+    if headless:
+        options.add_argument("--headless")
     options.headless = headless
     options.add_argument('--no-sandbox')
     options.add_argument("--disable-setuid-sandbox")
@@ -55,12 +57,32 @@ def get_firefox(user_data_dir=None, headless=False):
 
     fp.set_preference('dom.push.enabled', False)
     fp.set_preference('media.volume_scale', "0.0")
-    
+    # fp.set_preference("network.proxy.type", 1)
+    # fp.set_preference("network.proxy.http", '195.85.194.198')
+    # fp.set_preference("network.proxy.http_port", int(8000))
+    # fp.set_preference("network.proxy.no_proxies_on", "localhost, 127.0.0.1")
+    # fp.set_preference("network.proxy.share_proxy_settings", True)
+    # fp.set_preference("network.proxy.username", "mMvnM5")
+    # fp.set_preference("network.proxy.password", "q58u1L")
+
+
+    myProxy = "mMvnM5:q58u1L@195.85.194.198:8000"
+
+    proxy = Proxy({
+        'proxyType': ProxyType.MANUAL,
+        'httpProxy': myProxy,
+        'ftpProxy': myProxy,
+        'sslProxy': myProxy,
+        'noProxy': ''  # set this value as desired
+    })
+
     driver = webdriver.Firefox(
         firefox_profile=fp,
         options=options,
-        executable_path=GeckoDriverManager().install(),
-        log_path='geckodriver.log')
+        executable_path=GeckoDriverManager(cache_valid_range=1).install(),
+        log_path='geckodriver.log',
+        
+    )
     return driver
 
 
