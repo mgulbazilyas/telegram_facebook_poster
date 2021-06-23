@@ -22,19 +22,26 @@ try:
         print(message.chat.id)
         bot.reply_to(message, "Howdy, how are you doing?")
     
-    @bot.message_handler(commands=['stop_bot', ])
+    @bot.message_handler(commands=['stop_bot', ], func=lambda message: message.chat.id in [795743472, 1461841797, -519543356])
     def stop_bot(message):
         global status
         status = False
         bot.reply_to(message, "bot Stopped")
 
 
-    @bot.message_handler(commands=['start_bot', ], func=lambda message: message.chat.id in [795743472, 1461841797])
+    @bot.message_handler(commands=['start_bot', ], func=lambda message: message.chat.id in [795743472, 1461841797, -519543356])
     def start_bot(message):
         global status
         status = True
         bot.reply_to(message, "bot started")
     
+    @bot.message_handler(commands=['status', ], func=lambda message: message.chat.id in [795743472, 1461841797, -519543356])
+    def start_bot(message):
+        global status
+        if status:
+            bot.reply_to(message, "Running")
+        else:
+            bot.reply_to(message, "stopped")
     
     @bot.channel_post_handler(content_types=['text'])
     def echo_text(message):
