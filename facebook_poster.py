@@ -88,7 +88,7 @@ class Setup:
         pc.copy(text)
 
         # write.send_keys(text)
-        write.send_keys(Keys.CONTROL + 'V')
+        write.send_keys(Keys.CONTROL + 'v')
         time.sleep(5)
         
         for file in media:
