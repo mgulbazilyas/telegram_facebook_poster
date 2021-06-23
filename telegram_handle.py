@@ -11,44 +11,60 @@ import facebook_poster
 
 # os.system("http://mMvnM5:q58u1L@195.85.194.198:8000")
 # os.system("https://mMvnM5:q58u1L@195.85.194.198:8000")
+status = False
 
 try:
-    poster = facebook_poster.Setup()
     bot = telebot.TeleBot(TOKEN, )
     
     
     @bot.message_handler(commands=['start', 'help'])
     def send_welcome(message):
-        # print(message)
+        print(message.chat.id)
         bot.reply_to(message, "Howdy, how are you doing?")
+    
+    @bot.message_handler(commands=['stop_bot', ])
+    def stop_bot(message):
+        global status
+        status = False
+        bot.reply_to(message, "bot Stopped")
+
+
+    @bot.message_handler(commands=['start_bot', ], func=lambda message: message.chat.id in [795743472, 1461841797])
+    def start_bot(message):
+        global status
+        status = True
+        bot.reply_to(message, "bot started")
     
     
     @bot.channel_post_handler(content_types=['text'])
     def echo_text(message):
+        poster = facebook_poster.Setup()
         poster.post_group(facebook_group, message.text)
-    
-    
+        poster.driver.quit()
+        
     @bot.message_handler(content_types=['photo'])
     @bot.channel_post_handler(
         # func=lambda message: message.chat.id == telegram_group_id,
         content_types=['photo'])
     def echo_photo(message):
-        print('channel_id:', message.chat.id, message.chat.id == telegram_channel_id)
-        file_id = message.photo[-1].file_id
-        file_info = bot.get_file(file_id)
-        file = wget.download('https://api.telegram.org/file/bot{0}/{1}'.format(TOKEN, file_info.file_path),
-                             out=file_info.file_path)
-        poster.post_group(facebook_group, message.caption, media=[file])
-        # bot.reply_to(message, message.caption)
-        bot.send_message(-1001381745215, 'Sent\n'+message.caption)
-    
+        
+        if status:
+            print('channel_id:', message.chat.id, message.chat.id == telegram_channel_id)
+            file_id = message.photo[-1].file_id
+            file_info = bot.get_file(file_id)
+            file = wget.download('https://api.telegram.org/file/bot{0}/{1}'.format(TOKEN, file_info.file_path),
+                                 out=file_info.file_path)
+            poster = facebook_poster.Setup()
+            poster.post_group(facebook_group, message.caption, media=[file])
+            # bot.reply_to(message, message.caption)
+            bot.send_message(-1001381745215, 'Sent\n'+message.caption)
+            poster.driver.quit()
     print('started')
     bot.polling(none_stop=True, )
     # bot.get_updates(limit=4)
     
     # chat = bot.get_chat(telegram_group_id)
 except KeyboardInterrupt:
-    poster.driver.quit()
     print('Driver Closed')
 except Exception as e:
     raise e
