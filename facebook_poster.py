@@ -7,6 +7,7 @@ import threading
 from selenium.webdriver.common.keys import Keys
 import functions
 from config import *
+import pyperclip as pc
 os.makedirs('screenshots', exist_ok=True)
 
 

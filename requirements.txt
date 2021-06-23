@@ -1,6 +1,8 @@
 pyTelegramBotAPI
-selenium
+selenium~=3.141.0
 webdriver-manager
-wget
+wget~=3.2
 phantomjs-binary
 selenium-wire
+pathlib~=1.0.1
+pyperclip~=1.8.0
