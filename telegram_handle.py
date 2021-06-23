@@ -1,3 +1,4 @@
+import time
 from pprint import pprint
 import wget
 import telebot
@@ -65,6 +66,7 @@ try:
             poster.post_group(facebook_group, message.caption, media=[file])
             # bot.reply_to(message, message.caption)
             bot.send_message(-1001381745215, 'Sent\n'+message.caption)
+            time.sleep(10)
             poster.driver.quit()
     print('started')
     bot.polling(none_stop=True, )
