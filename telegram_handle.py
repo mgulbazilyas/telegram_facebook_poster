@@ -9,14 +9,14 @@ ssl._create_default_https_context = ssl._create_unverified_context
 os.makedirs('photos', exist_ok=True)
 from config import *
 import facebook_poster
-
+import api_poster
 # os.system("http://mMvnM5:q58u1L@195.85.194.198:8000")
 # os.system("https://mMvnM5:q58u1L@195.85.194.198:8000")
-status = False
+status = True
 
 try:
     bot = telebot.TeleBot(TOKEN, )
-    
+    bot.send_message(-519543356, 'Bot started')
     
     @bot.message_handler(commands=['start', 'help'])
     def send_welcome(message):
@@ -46,9 +46,11 @@ try:
     
     @bot.channel_post_handler(content_types=['text'])
     def echo_text(message):
-        poster = facebook_poster.Setup()
-        poster.post_group(facebook_group, message.text)
-        poster.driver.quit()
+        api_poster.add_mesage({
+            "telegram_id": message.id,
+            "message": message.text,
+            "sender_id": message.chat.id,
+        })
         
     @bot.message_handler(content_types=['photo'])
     @bot.channel_post_handler(
@@ -59,15 +61,12 @@ try:
         if status:
             print('channel_id:', message.chat.id, message.chat.id == telegram_channel_id)
             file_id = message.photo[-1].file_id
-            file_info = bot.get_file(file_id)
-            file = wget.download('https://api.telegram.org/file/bot{0}/{1}'.format(TOKEN, file_info.file_path),
-                                 out=file_info.file_path)
-            poster = facebook_poster.Setup()
-            poster.post_group(facebook_group, message.caption, media=[file])
-            # bot.reply_to(message, message.caption)
-            bot.send_message(-1001381745215, 'Sent\n'+message.caption)
-            time.sleep(10)
-            poster.driver.quit()
+            api_poster.add_mesage({
+                "telegram_id": message.id,
+                "message": message.caption,
+                "images": file_id,
+                "sender_id": message.chat.id,
+            })
     print('started')
     bot.polling(none_stop=True, )
     # bot.get_updates(limit=4)
