@@ -68,9 +68,17 @@ try:
                 "sender_id": message.chat.id,
             })
     print('started')
-    bot.polling(none_stop=True, )
-    # bot.get_updates(limit=4)
-    
+    bot.polling()
+
+    while 1:
+        
+        updates = bot.get_updates(limit=1)
+        bot.process_new_updates(updates)
+        print(updates)
+        print("sleeping 5 sec")
+        time.sleep(5)
+        
+        # bot.get_updates(limit=4)
     # chat = bot.get_chat(telegram_group_id)
 except KeyboardInterrupt:
     print('Driver Closed')
