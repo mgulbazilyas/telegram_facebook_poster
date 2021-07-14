@@ -159,5 +159,5 @@ if __name__ == '__main__':
                     media=[file],
                 )
                 sent_groups_list.append(group)
-                api_poster.api.update(post.get('id'), {'sent_group': ', '.join(sent_groups_list)}
+                api_poster.api.update(post.get('id'), {'sent_group': ', '.join(sent_groups_list)})
                 
