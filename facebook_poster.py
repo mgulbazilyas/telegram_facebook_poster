@@ -137,7 +137,7 @@ if __name__ == '__main__':
         pass
 
     telegram_bot = telebot.TeleBot(TOKEN, )
-    if 1 and 0:
+    if 1 and 1:
         res = api_poster.api.list().get('results')[::-1]
         for post in res:
             # post = res[0]
