@@ -144,13 +144,14 @@ if __name__ == '__main__':
     
             sent_groups = post.get('sent_groups')
             sent_groups_list = sent_groups.split(', ')
-            ', '.join(sent_groups_list)
+            
             for group in facebook_groups:
                 # group = facebook_groups[0]
                 if group in sent_groups:
                     continue
-                file = wget.download('https://api.telegram.org/file/bot{0}/{1}'.format(TOKEN, post.get('images')),
-                                     out='file.jpg')
+                file_info = telegram_bot.get_file(post.get('images'))
+                file = wget.download('https://api.telegram.org/file/bot{0}/{1}'.format(TOKEN, file_info.file_path),
+                                     out=file_info.file_path)
                 
                 bot.post_group(
                     link=group,
@@ -158,5 +159,5 @@ if __name__ == '__main__':
                     media=[file],
                 )
                 sent_groups_list.append(group)
-                api_poster.api.update
+                api_poster.api.update(post.get('id'), {'sent_group': ', '.join(sent_groups_list)}
                 
