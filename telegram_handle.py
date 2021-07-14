@@ -61,7 +61,7 @@ try:
         if status:
             print('channel_id:', message.chat.id, message.chat.id == telegram_channel_id)
             file_id = message.photo[-1].file_id
-            api_poster.add_mesage({
+            api_poster.api.create({
                 "telegram_id": message.id,
                 "message": message.caption,
                 "images": file_id,

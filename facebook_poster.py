@@ -1,5 +1,9 @@
 # In[1]
 import os
+
+import wget
+
+import telebot
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver import Chrome
 import time
@@ -8,8 +12,8 @@ from selenium.webdriver.common.keys import Keys
 import functions
 from config import *
 import pyperclip as pc
+import api_poster
 os.makedirs('screenshots', exist_ok=True)
-
 
 class Setup:
     def __init__(self, **kwargs):
@@ -124,3 +128,35 @@ class Setup:
     def __del__(self):
         self.driver.quit()
 
+
+if __name__ == '__main__':
+    bot = Setup()
+    try:
+        bot.login()
+    except:
+        pass
+
+    telegram_bot = telebot.TeleBot(TOKEN, )
+    if 1 and 0:
+        res = api_poster.api.list().get('results')[::-1]
+        for post in res:
+            # post = res[0]
+    
+            sent_groups = post.get('sent_groups')
+            sent_groups_list = sent_groups.split(', ')
+            ', '.join(sent_groups_list)
+            for group in facebook_groups:
+                # group = facebook_groups[0]
+                if group in sent_groups:
+                    continue
+                file = wget.download('https://api.telegram.org/file/bot{0}/{1}'.format(TOKEN, post.get('images')),
+                                     out='file.jpg')
+                
+                bot.post_group(
+                    link=group,
+                    text=post.get('message'),
+                    media=[file],
+                )
+                sent_groups_list.append(group)
+                api_poster.api.update
+                
