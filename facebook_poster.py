@@ -154,7 +154,7 @@ if __name__ == '__main__':
                                      out=file_info.file_path)
                 
                 bot.post_group(
-                    link=group,
+                    link="https://facebook.com/groups/" + str(group),
                     text=post.get('message'),
                     media=[file],
                 )
