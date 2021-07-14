@@ -321,7 +321,7 @@ class TeleBot:
         if self.skip_pending:
             logger.debug('Skipped {0} pending messages'.format(self.__skip_updates()))
             self.skip_pending = False
-        updates = self.get_updates(offset=(self.last_update_id + 1), timeout=timeout, long_polling_timeout = long_polling_timeout)
+        updates = self.get_updates(offset=(self.last_update_id + 1), timeout=timeout, long_polling_timeout = long_polling_timeout,limit=1)
         self.process_new_updates(updates)
 
     def process_new_updates(self, updates):
