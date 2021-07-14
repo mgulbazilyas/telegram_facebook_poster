@@ -8,7 +8,10 @@ class GUKLYAPI:
         self.api_token = api_token
         self.endpoint = endpoint
         self.session = requests.Session()
-        self.session.headers = {'Authorization': self.api_token}
+        self.session.headers = {
+            'Authorization': self.api_token,
+            'Content-Type': 'application/json',
+        }
         
     def list(self, params=None):
         if params is None:
@@ -29,3 +32,4 @@ class GUKLYAPI:
 
 
 api = GUKLYAPI(API_TOKEN, 'https://gukly.com/clients/lionpost/')
+self = api
