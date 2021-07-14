@@ -25,7 +25,7 @@ class GUKLYAPI:
         return self.session.delete(self.endpoint + str(pk) + '/', ).json()
     
     def update(self, pk, data):
-        return self.session.patch(self.endpoint + str(pk) + '/', data=data).json()
+        return self.session.put(self.endpoint + str(pk) + '/', data=data).json()
 
 
 api = GUKLYAPI(API_TOKEN, 'https://gukly.com/clients/lionpost/')
