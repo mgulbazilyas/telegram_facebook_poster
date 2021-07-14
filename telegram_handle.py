@@ -18,8 +18,8 @@ status = False
 
 try:
     bot = telebot.TeleBot(TOKEN, )
-    
-    
+    bot.send_message(-519543356, 'Bot started')
+    self = bot
     @bot.message_handler(commands=['start', 'help'])
     def send_welcome(message):
         print(message.chat.id)
@@ -78,10 +78,11 @@ try:
             time.sleep(10)
             poster.driver.quit()
     
-    
+    bot.polling()
     print('started')
     if 1:
-        updates = bot.get_updates(limit=1)
+        updates = bot.get_updates(offset=(self.last_update_id + 1),
+                                  limit=1)
         bot.process_new_updates(updates)
         print(updates)
         print("sleeping 5 sec")
