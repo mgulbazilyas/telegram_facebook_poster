@@ -150,15 +150,16 @@ if __name__ == '__main__':
                     continue
                 if not bot:
                     bot = Setup()
-
-                file_info = telegram_bot.get_file(post.get('images'))
-                file = wget.download('https://api.telegram.org/file/bot{0}/{1}'.format(TOKEN, file_info.file_path),
-                                     out=file_info.file_path)
-                
+                files = []
+                if post.get('images'):
+                    file_info = telegram_bot.get_file(post.get('images'))
+                    file = wget.download('https://api.telegram.org/file/bot{0}/{1}'.format(TOKEN, file_info.file_path),
+                                         out=file_info.file_path)
+                    files = [file]
                 bot.post_group(
                     link="https://facebook.com/groups/" + str(group),
                     text=post.get('message'),
-                    media=[file],
+                    media=files,
                 )
                 sent_groups_list.append(group)
                 print(sent_groups_list)
