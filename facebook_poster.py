@@ -163,6 +163,7 @@ if __name__ == '__main__':
                 sent_groups_list.append(group)
                 print(sent_groups_list)
                 api_poster.api.update(post.get('id'), {'sent_groups': ', '.join(sent_groups_list)})
+                telegram_bot.send_message(-519543356, "Sent \n"+post.get('message'))
                 time.sleep(600) # pause of 10 minutes
         
         if bot:
