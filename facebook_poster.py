@@ -130,18 +130,17 @@ class Setup:
 
 
 if __name__ == '__main__':
-    bot = Setup()
-    try:
-        bot.login()
-    except:
-        pass
 
     telegram_bot = telebot.TeleBot(TOKEN, )
-    if 1 and 1:
+    bot = None
+    while 1:
+        time.sleep(5)
         res = api_poster.api.list().get('results')[::-1]
+        
+        
         for post in res:
             # post = res[0]
-    
+            
             sent_groups = post.get('sent_groups')
             sent_groups_list = sent_groups.split(', ')
             
@@ -149,6 +148,9 @@ if __name__ == '__main__':
                 # group = facebook_groups[0]
                 if group in sent_groups:
                     continue
+                if not bot:
+                    bot = Setup()
+
                 file_info = telegram_bot.get_file(post.get('images'))
                 file = wget.download('https://api.telegram.org/file/bot{0}/{1}'.format(TOKEN, file_info.file_path),
                                      out=file_info.file_path)
@@ -161,4 +163,10 @@ if __name__ == '__main__':
                 sent_groups_list.append(group)
                 print(sent_groups_list)
                 api_poster.api.update(post.get('id'), {'sent_group': ', '.join(sent_groups_list)})
-                
+                time.sleep(600) # pause of 10 minutes
+        
+        if bot:
+            bot.driver.quit()
+            del bot
+            bot = None
+        
