@@ -135,7 +135,7 @@ if __name__ == '__main__':
     bot = None
     while 1:
         time.sleep(5)
-        res = api_poster.api.list().get('results')[::-1]
+        res = api_poster.api.list({'limit': 4}).get('results')[::-1]
         
         
         for post in res:
