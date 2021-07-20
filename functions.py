@@ -97,7 +97,9 @@ def get_webdriver(user_data_dir=None, headless=False):
     chrome_options.headless = headless
     if user_data_dir:
         chrome_options.add_argument(f'--user-data-dir={scriptDirectory / user_data_dir}')
-    driver = Chrome(executable_path=ChromeDriverManager().install(), options=chrome_options)
+    driver = Chrome(
+        # executable_path=ChromeDriverManager().install(),
+        options=chrome_options)
     return driver
 
 
