@@ -92,7 +92,7 @@ class Setup:
             pc.copy(text)
 
             write.send_keys(Keys.CONTROL + 'v')
-        else:
+        else    :
             write.send_keys(text)
 
         time.sleep(5)
@@ -162,6 +162,7 @@ if __name__ == '__main__':
                     link="https://facebook.com/groups/" + str(group),
                     text=post.get('message'),
                     media=files,
+                    use_copy_paste=False,
                 )
                 sent_groups_list.append(group)
                 print(sent_groups_list)
