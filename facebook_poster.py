@@ -13,7 +13,36 @@ import functions
 from config import *
 import pyperclip as pc
 import api_poster
+
 os.makedirs('screenshots', exist_ok=True)
+
+import logging
+
+"""
+%(pathname)s Full pathname of the source file where the logging call was issued(if available).
+
+%(filename)s Filename portion of pathname.
+
+%(module)s Module (name portion of filename).
+
+%(funcName)s Name of function containing the logging call.
+
+%(lineno)d Source line number where the logging call was issued (if available).
+"""
+
+name = 'facebook_handle'
+level = 10
+logger = logging.getLogger(name)
+
+handler = logging.StreamHandler()
+formatter = logging.Formatter('[%(name)s] - %(message)s')
+handler.setFormatter(formatter)
+streamHandler = logging.FileHandler('facebook_handle.log')
+formatter = logging.Formatter('%(asctime)s [%(name)s] - %(message)s', datefmt='%Y-%m-%d:%H:%M:%S')
+streamHandler.setFormatter(formatter)
+logger.addHandler(streamHandler)
+logger.addHandler(handler)
+logger.setLevel(level)
 
 class Setup:
     def __init__(self, **kwargs):
@@ -138,7 +167,7 @@ if __name__ == '__main__':
     while 1:
         time.sleep(5)
         res = api_poster.api.list({'limit': 4}).get('results')[::-1]
-        
+        logger.info(f'Posts: {len(res)}')
         
         for post in res:
             # post = res[0]
