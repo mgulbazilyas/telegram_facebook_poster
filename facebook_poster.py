@@ -44,6 +44,7 @@ logger.addHandler(streamHandler)
 logger.addHandler(handler)
 logger.setLevel(level)
 
+
 class Setup:
     def __init__(self, **kwargs):
         self.post_data = []
@@ -57,8 +58,15 @@ class Setup:
         self.driver = kwargs.get('driver', None)
         if self.driver is None:
             self.do_driver_open()
-        
 
+    def sendKeysWithEmojis(self, element, text):
+        script = '''var elm = arguments[0],
+        txt = arguments[1];elm.value += txt;
+        elm.dispatchEvent(new Event('keydown', {bubbles: true}));
+        elm.dispatchEvent(new Event('keypress', {bubbles: true}));
+        elm.dispatchEvent(new Event('input', {bubbles: true}));
+        elm.dispatchEvent(new Event('keyup', {bubbles: true}));'''
+        self.driver.execute_script(script, element, text)
 
     def do_driver_open(self):
         self.driver = functions.get_webdriver(user_data_dir='chrome_data', headless=True)
@@ -121,8 +129,10 @@ class Setup:
             pc.copy(text)
 
             write.send_keys(Keys.CONTROL + 'v')
-        else    :
-            write.send_keys(text)
+        else:
+            self.sendKeysWithEmojis(
+                write, text
+            )
 
         time.sleep(5)
         
