@@ -32,7 +32,7 @@ class Setup:
 
 
     def do_driver_open(self):
-        self.driver = functions.get_webdriver(user_data_dir='chrome_data', headless=True)
+        self.driver = functions.get_firefox(headless=True)
         self.driver.set_window_size(1200, 700)
         self.driver.get("https://www.facebook.com")
         # self.driver.get('https://www.google.com/search?q=what+is+my+ip')
@@ -55,7 +55,7 @@ class Setup:
     def quit(self):
         self.driver.quit()
 
-    def post_group(self, link=None, text=None, media=[]):
+    def post_group(self, link=None, text=None, media=[], use_copy_paste=True):
         if text is None: return False
         if link is None or link == '': return False
 
@@ -87,12 +87,14 @@ class Setup:
                  if i.is_displayed()][-1]
         write.click()
 
+        if use_copy_paste:
+            # copying text to clipboard
+            pc.copy(text)
 
-        # copying text to clipboard
-        pc.copy(text)
+            write.send_keys(Keys.CONTROL + 'v')
+        else:
+            write.send_keys(text)
 
-        # write.send_keys(text)
-        write.send_keys(Keys.CONTROL + 'v')
         time.sleep(5)
         
         for file in media:
