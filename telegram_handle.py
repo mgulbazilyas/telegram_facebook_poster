@@ -16,6 +16,33 @@ import api_poster
 # os.system("http://mMvnM5:q58u1L@195.85.194.198:8000")
 # os.system("https://mMvnM5:q58u1L@195.85.194.198:8000")
 status = True
+import logging
+
+"""
+%(pathname)s Full pathname of the source file where the logging call was issued(if available).
+
+%(filename)s Filename portion of pathname.
+
+%(module)s Module (name portion of filename).
+
+%(funcName)s Name of function containing the logging call.
+
+%(lineno)d Source line number where the logging call was issued (if available).
+"""
+name = 'telegram_handle'
+level = 10
+logger = logging.getLogger(name)
+
+handler = logging.StreamHandler()
+formatter = logging.Formatter('[%(name)s] - %(message)s')
+handler.setFormatter(formatter)
+streamHandler = logging.FileHandler('telegram_handle.log')
+formatter = logging.Formatter('%(asctime)s [%(name)s] - %(message)s', datefmt='%Y-%m-%d:%H:%M:%S')
+streamHandler.setFormatter(formatter)
+logger.addHandler(streamHandler)
+logger.addHandler(handler)
+logger.setLevel(level)
+
 
 try:
     bot = telebot.TeleBot(TOKEN, )
@@ -68,12 +95,12 @@ try:
         if status:
             print('channel_id:', message.chat.id, message.chat.id == telegram_channel_id)
             file_id = message.photo[-1].file_id
-            api_poster.api.create({
+            logger.info(api_poster.api.create({
                 "telegram_id": message.id,
                 "message": message.caption,
                 "images": file_id,
                 "sender_id": message.chat.id,
-            })
+            }).text)
     
     
     print('started')
