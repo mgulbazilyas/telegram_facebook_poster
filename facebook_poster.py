@@ -32,7 +32,7 @@ class Setup:
 
 
     def do_driver_open(self):
-        self.driver = functions.get_firefox(headless=True)
+        self.driver = functions.get_webdriver(user_data_dir='chrome_data', headless=True)
         self.driver.set_window_size(1200, 700)
         self.driver.get("https://www.facebook.com")
         # self.driver.get('https://www.google.com/search?q=what+is+my+ip')
