@@ -22,7 +22,7 @@ class GUKLYAPI:
         return self.session.get(self.endpoint + str(pk) + '/', ).json()
     
     def create(self, data):
-        return self.session.post(self.endpoint, data)
+        return self.session.post(self.endpoint, json=data)
 
     def delete(self, pk):
         return self.session.delete(self.endpoint + str(pk) + '/', ).json()
