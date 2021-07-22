@@ -177,35 +177,35 @@ if __name__ == '__main__':
         res = api_poster.api.list({'limit': 4}).get('results')[::-1]
         logger.info(f'Posts: {len(res)}')
         try:
-        for post in res:
-            # post = res[0]
-            
-            sent_groups = post.get('sent_groups')
-            sent_groups_list = sent_groups.split(', ')
-            
-            for group in facebook_groups:
-                # group = facebook_groups[0]
-                if group in sent_groups:
-                    continue
-                if not bot:
-                    bot = Setup()
-                files = []
-                if post.get('images'):
-                    file_info = telegram_bot.get_file(post.get('images'))
-                    file = wget.download('https://api.telegram.org/file/bot{0}/{1}'.format(TOKEN, file_info.file_path),
-                                         out=file_info.file_path)
-                    files = [file]
-                bot.post_group(
-                    link="https://facebook.com/groups/" + str(group),
-                    text=post.get('message'),
-                    media=files,
-                    use_copy_paste=False,
-                )
-                sent_groups_list.append(group)
-                print(sent_groups_list)
-                api_poster.api.update(post.get('id'), {'sent_groups': ', '.join(sent_groups_list)})
-                telegram_bot.send_message(-519543356, "Sent \n"+post.get('message'))
-                time.sleep(600) # pause of 10 minutes
+            for post in res:
+                # post = res[0]
+
+                sent_groups = post.get('sent_groups')
+                sent_groups_list = sent_groups.split(', ')
+
+                for group in facebook_groups:
+                    # group = facebook_groups[0]
+                    if group in sent_groups:
+                        continue
+                    if not bot:
+                        bot = Setup()
+                    files = []
+                    if post.get('images'):
+                        file_info = telegram_bot.get_file(post.get('images'))
+                        file = wget.download('https://api.telegram.org/file/bot{0}/{1}'.format(TOKEN, file_info.file_path),
+                                             out=file_info.file_path)
+                        files = [file]
+                    bot.post_group(
+                        link="https://facebook.com/groups/" + str(group),
+                        text=post.get('message'),
+                        media=files,
+                        use_copy_paste=False,
+                    )
+                    sent_groups_list.append(group)
+                    print(sent_groups_list)
+                    api_poster.api.update(post.get('id'), {'sent_groups': ', '.join(sent_groups_list)})
+                    telegram_bot.send_message(-519543356, "Sent \n"+post.get('message'))
+                    time.sleep(600) # pause of 10 minutes
         except Exception as e:
             logger.exception(e)
             telegram_bot.send_message(-519543356, f"Got Error\n{e}")
