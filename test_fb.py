@@ -1,4 +1,4 @@
 import facebook_poster
 
-bot = facebook_poster.Setup()
+self = facebook_poster.Setup()
 

@@ -61,7 +61,7 @@ class Setup:
 
     def sendKeysWithEmojis(self, element, text):
         script = '''var elm = arguments[0],
-        txt = arguments[1];elm.value += txt;
+        txt = arguments[1]; elm.value += txt;
         elm.dispatchEvent(new Event('keydown', {bubbles: true}));
         elm.dispatchEvent(new Event('keypress', {bubbles: true}));
         elm.dispatchEvent(new Event('input', {bubbles: true}));
@@ -69,7 +69,7 @@ class Setup:
         self.driver.execute_script(script, element, text)
 
     def do_driver_open(self):
-        self.driver = functions.get_webdriver(user_data_dir='chrome_data', headless=True)
+        self.driver = functions.get_firefox(headless=True)
         self.driver.set_window_size(1200, 700)
         self.driver.get("https://www.facebook.com")
         # self.driver.get('https://www.google.com/search?q=what+is+my+ip')
@@ -130,9 +130,7 @@ class Setup:
 
             write.send_keys(Keys.CONTROL + 'v')
         else:
-            self.sendKeysWithEmojis(
-                write, text
-            )
+            write.send_keys(text)
 
         time.sleep(5)
         
