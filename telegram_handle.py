@@ -104,7 +104,13 @@ try:
     
     
     print('started')
-    bot.polling(none_stop=True, )
+    while 1:
+        try:
+
+            bot.polling(none_stop=True, )
+        except:
+            pass
+        time.sleep(10)
     # bot.get_updates(limit=4)
     
     # chat = bot.get_chat(telegram_group_id)
