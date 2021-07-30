@@ -115,6 +115,7 @@ class Setup:
         # except :
         #     Post = driver.find_element_by_xpath('//*[@name="xhpc_message_text"]')
         #     Post.click()
+        driver.save_screenshot('screenshots/before_posting.png')
         driver.find_element_by_css_selector('[data-pagelet="GroupInlineComposer"] div[role=button]').click()
         # Post = driver.find_element_by_xpath('//*[@name="xhpc_message_text"]')
         # Post.click()
@@ -151,6 +152,8 @@ class Setup:
         write = [i for i in driver.find_elements_by_css_selector('[aria-label="Post"][role=button]')
                  if i.is_displayed()][-1]
         write.click()
+        driver.save_screenshot('screenshots/after_posting.png')
+
         # write.send_keys(Keys.COMMAND+'\n')
 
     def login(self):
