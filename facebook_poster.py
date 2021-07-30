@@ -105,17 +105,15 @@ class Setup:
             driver.switch_to.alert.accept()
         except:
             pass
-        # driver.save_screenshot('screenshots/before_scroll.png')
-
+        driver.save_screenshot('screenshots/before_scroll.png')
         driver.execute_script('window.scrollTo(0,350);')
         time.sleep(5)
-        # driver.save_screenshot('screenshots/before_posting.png')
+        driver.save_screenshot('screenshots/before_posting.png')
         # try:
         #     driver.find_element_by_css_selector('[loggingname="status_tab_selector"]').click();time.sleep(5)
         # except :
         #     Post = driver.find_element_by_xpath('//*[@name="xhpc_message_text"]')
         #     Post.click()
-        driver.save_screenshot('screenshots/before_posting.png')
         driver.find_element_by_css_selector('[data-pagelet="GroupInlineComposer"] div[role=button]').click()
         # Post = driver.find_element_by_xpath('//*[@name="xhpc_message_text"]')
         # Post.click()
