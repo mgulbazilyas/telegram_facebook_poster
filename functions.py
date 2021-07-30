@@ -79,7 +79,7 @@ def get_firefox(user_data_dir=None, headless=False):
     driver = webdriver.Firefox(
         firefox_profile=fp,
         options=options,
-        executable_path=GeckoDriverManager(cache_valid_range=1).install(),
+        # executable_path=GeckoDriverManager(cache_valid_range=1).install(),
         log_path='geckodriver.log',
         
     )
