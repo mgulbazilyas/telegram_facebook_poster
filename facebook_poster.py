@@ -85,7 +85,7 @@ class Setup:
         self.driver.execute_script(script, element, text)
 
     def do_driver_open(self):
-        self.driver = functions.get_firefox(headless=False)
+        self.driver = functions.get_firefox(headless=True)
         self.driver.set_window_size(1200, 700)
         self.load_cookies()
         # self.driver.get('https://www.google.com/search?q=what+is+my+ip')
