@@ -1,4 +1,5 @@
 # In[1]
+import json
 import os
 
 import wget
@@ -46,6 +47,21 @@ logger.setLevel(level)
 
 
 class Setup:
+    def save_cookies(self):
+        cookies = self.driver.get_cookies()
+
+        with open('cookies.json', 'w') as stream:
+            json.dump(cookies, stream)
+
+    def load_cookies(self):
+        self.driver.get('https://facebook.com')
+        if os.path.exists('cookies.json'):
+            with open('cookies.json') as stream:
+                cookies = json.load(stream)
+                for cookie in cookies:
+                    self.driver.add_cookie(cookie)
+
+            self.driver.refresh()
     def __init__(self, **kwargs):
         self.post_data = []
         # with open('logininfo.txt', 'r') as file:
@@ -69,14 +85,15 @@ class Setup:
         self.driver.execute_script(script, element, text)
 
     def do_driver_open(self):
-        self.driver = functions.get_firefox(headless=True)
+        self.driver = functions.get_firefox(headless=False)
         self.driver.set_window_size(1200, 700)
-        self.driver.get("https://www.facebook.com")
+        self.load_cookies()
         # self.driver.get('https://www.google.com/search?q=what+is+my+ip')
         self.driver.save_screenshot('screenshots/google.png')
 
         try:
             self.login()
+            self.save_cookies()
         except Exception as e:
             print(e)
         return self.driver
@@ -151,6 +168,7 @@ class Setup:
                  if i.is_displayed()][-1]
         write.click()
         driver.save_screenshot('screenshots/after_posting.png')
+        self.save_cookies()
 
         # write.send_keys(Keys.COMMAND+'\n')
 
