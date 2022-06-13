@@ -2,6 +2,7 @@
 import json
 import os
 
+import undetected_chromedriver
 import wget
 
 import telebot
@@ -14,7 +15,7 @@ import functions
 from config import *
 import pyperclip as pc
 import api_poster
-
+from selenium_common import get_driver
 os.makedirs('screenshots', exist_ok=True)
 
 import logging
@@ -45,6 +46,7 @@ logger.addHandler(streamHandler)
 logger.addHandler(handler)
 logger.setLevel(level)
 
+os.chdir('/var/www/html')
 
 class Setup:
     def save_cookies(self):
@@ -85,7 +87,7 @@ class Setup:
         self.driver.execute_script(script, element, text)
 
     def do_driver_open(self):
-        self.driver = functions.get_firefox(headless=True)
+        self.driver = undetected_chromedriver.Chrome()
         self.driver.set_window_size(1200, 700)
         self.load_cookies()
         # self.driver.get('https://www.google.com/search?q=what+is+my+ip')
@@ -194,7 +196,7 @@ if __name__ == '__main__':
     while 1:
         time.sleep(5)
         res = api_poster.api.list({'limit': 4}).get('results')[::-1]
-        logger.info(f'Posts: {len(res)}')
+        # logger.info(f'Posts: {len(res)}')
         try:
             for post in res:
                 # post = res[0]
@@ -208,6 +210,9 @@ if __name__ == '__main__':
                         continue
                     if not bot:
                         bot = Setup()
+                    if 'checkpoint' in bot.driver.current_url:
+                        input("Press Enter after resolving Error")
+
                     files = []
                     if post.get('images'):
                         file_info = telegram_bot.get_file(post.get('images'))
