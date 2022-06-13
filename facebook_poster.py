@@ -46,7 +46,6 @@ logger.addHandler(streamHandler)
 logger.addHandler(handler)
 logger.setLevel(level)
 
-os.chdir('/var/www/html')
 
 class Setup:
     def save_cookies(self):
@@ -87,7 +86,13 @@ class Setup:
         self.driver.execute_script(script, element, text)
 
     def do_driver_open(self):
-        self.driver = undetected_chromedriver.Chrome()
+        options = undetected_chromedriver.ChromeOptions()
+        user_data_dir = os.path.abspath('userData')
+        options.add_argument(f'--user-data-dir={user_data_dir}')
+        options.add_argument('--no-first-run --no-service-autorun --password-store=basic')
+
+        logger.info('Starting Chrome')
+        self.driver = undetected_chromedriver.Chrome(options=options)
         self.driver.set_window_size(1200, 700)
         self.load_cookies()
         # self.driver.get('https://www.google.com/search?q=what+is+my+ip')
