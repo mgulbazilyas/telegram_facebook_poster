@@ -125,8 +125,6 @@ def login(driver, user, passwd):
         time.sleep(2)
         
     except: pass
-    print(driver.find_element_by_css_selector('[name="email"]').get_attribute('value'))
-    print(driver.find_element_by_css_selector('[name="pass"]').get_attribute('value'))
     driver.save_screenshot('screenshots/before_login.png')
     # with open('screenshots/login_page.html', 'w')as stream:
     #     stream.write(str(driver.find_element_by_css_selector('body').get_attribute('innerHTML')))

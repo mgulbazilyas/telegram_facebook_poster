@@ -17,6 +17,7 @@ import pyperclip as pc
 import api_poster
 from selenium_common import get_driver
 os.makedirs('screenshots', exist_ok=True)
+os.makedirs('photos', exist_ok=True)
 
 import logging
 
