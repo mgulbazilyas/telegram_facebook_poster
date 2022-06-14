@@ -133,6 +133,9 @@ def login(driver, user, passwd):
     submit = driver.find_element_by_name('login')
     driver.execute_script('arguments[0].click();', submit)
     time.sleep(5)
+    if "mutation" in driver.current_url or 'checkpoint' in driver.current_url:
+
+        input("Login and press Enter")
     driver.save_screenshot('screenshots/after_login.png')
 
 def read_config_file(filename='config.txt'):
