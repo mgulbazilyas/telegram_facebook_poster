@@ -1,6 +1,8 @@
 import time
 from pprint import pprint
 import wget
+
+import datastore
 import telebot
 import os
 
@@ -43,34 +45,33 @@ logger.addHandler(streamHandler)
 logger.addHandler(handler)
 logger.setLevel(level)
 
-
 try:
     bot = telebot.TeleBot(TOKEN, )
     bot.send_message(-519543356, 'Bot started')
-    
-    
+
+
     @bot.message_handler(commands=['start', 'help'])
     def send_welcome(message):
         print(message.chat.id)
         bot.reply_to(message, "Howdy, how are you doing?")
-    
-    
+
+
     @bot.message_handler(commands=['stop_bot', ],
                          func=lambda message: message.chat.id in [795743472, 1461841797, -519543356])
     def stop_bot(message):
         global status
         status = False
         bot.reply_to(message, "bot Stopped")
-    
-    
+
+
     @bot.message_handler(commands=['start_bot', ],
                          func=lambda message: message.chat.id in [795743472, 1461841797, -519543356])
     def start_bot(message):
         global status
         status = True
         bot.reply_to(message, "bot started")
-    
-    
+
+
     @bot.message_handler(commands=['status', ],
                          func=lambda message: message.chat.id in [795743472, 1461841797, -519543356])
     def start_bot(message):
@@ -79,30 +80,31 @@ try:
             bot.reply_to(message, "Running")
         else:
             bot.reply_to(message, "stopped")
-    
-    
+
+
     @bot.channel_post_handler(content_types=['text'])
     def echo_text(message):
         bot.reply_to(message, "Not Implemented Yet")
-    
-    
+
+
     @bot.message_handler(content_types=['photo'])
     @bot.channel_post_handler(
         # func=lambda message: message.chat.id == telegram_group_id,
         content_types=['photo'])
     def echo_photo(message):
-        
+
         if status:
             print('channel_id:', message.chat.id, message.chat.id == telegram_channel_id)
             file_id = message.photo[-1].file_id
-            logger.info(api_poster.api.create({
-                "telegram_id": message.id,
-                "message": message.caption,
-                "images": file_id,
-                "sender_id": message.chat.id,
-            }).text)
-    
-    
+            (datastore.store.add_object(
+                {
+                    "telegram_id": message.id,
+                    "message": message.caption,
+                    "images": file_id,
+                    "sender_id": message.chat.id,
+                }))
+
+
     print('started')
     while 1:
         try:
@@ -112,7 +114,7 @@ try:
             pass
         time.sleep(10)
     # bot.get_updates(limit=4)
-    
+
     # chat = bot.get_chat(telegram_group_id)
 except KeyboardInterrupt:
     print('Driver Closed')

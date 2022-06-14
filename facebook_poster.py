@@ -18,7 +18,7 @@ import api_poster
 from selenium_common import get_driver
 os.makedirs('screenshots', exist_ok=True)
 os.makedirs('photos', exist_ok=True)
-
+import datastore
 import logging
 
 """
@@ -201,13 +201,13 @@ if __name__ == '__main__':
     bot = None
     while 1:
         time.sleep(5)
-        res = api_poster.api.list({'limit': 4}).get('results')[::-1]
+        res = datastore.store.get_undone()
         # logger.info(f'Posts: {len(res)}')
         try:
-            for post in res:
-                # post = res[0]
+            if res:
+                post = res
+                sent_groups = post.get('sent_groups', '')
 
-                sent_groups = post.get('sent_groups')
                 sent_groups_list = sent_groups.split(', ')
 
                 for group in facebook_groups:
@@ -229,10 +229,9 @@ if __name__ == '__main__':
                         link="https://facebook.com/groups/" + str(group),
                         text=post.get('message'),
                         media=files,
-                        use_copy_paste=False,
+                        use_copy_paste=True,
                     )
                     sent_groups_list.append(group)
-                    print(sent_groups_list)
                     api_poster.api.update(post.get('id'), {'sent_groups': ', '.join(sent_groups_list)})
                     telegram_bot.send_message(-519543356, "Sent \n"+post.get('message'))
                     time.sleep(600) # pause of 10 minutes
