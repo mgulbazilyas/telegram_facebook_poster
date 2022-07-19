@@ -12,8 +12,8 @@ import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 os.makedirs('photos', exist_ok=True)
 from config import *
-import facebook_poster
-import api_poster
+# import facebook_poster
+# import api_poster
 
 # os.system("http://mMvnM5:q58u1L@195.85.194.198:8000")
 # os.system("https://mMvnM5:q58u1L@195.85.194.198:8000")
